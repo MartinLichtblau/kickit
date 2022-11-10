@@ -68,7 +68,7 @@ export const ContestUpdate = () => {
       : {
           contestMode: 'ONE',
           location: 'WUERZBURG',
-          winnerTeam: '',
+          winnerTeam: 'T1',
           ...contestEntity,
         };
 
@@ -88,7 +88,16 @@ export const ContestUpdate = () => {
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               {!isNew ? <ValidatedField name="id" required readOnly id="contest-id" label="ID" validate={{ required: true }} /> : null}
-              <ValidatedField label="Date" id="contest-date" name="date" data-cy="date" type="date" />
+              <ValidatedField
+                label="Date"
+                id="contest-date"
+                name="date"
+                data-cy="date"
+                type="date"
+                validate={{
+                  required: { value: true, message: 'This field is required.' },
+                }}
+              />
               <ValidatedField label="Contest Mode" id="contest-contestMode" name="contestMode" data-cy="contestMode" type="select">
                 {contestModeValues.map(contestMode => (
                   <option value={contestMode} key={contestMode}>

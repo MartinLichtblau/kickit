@@ -7,16 +7,19 @@
   "fields": [
     {
       "fieldName": "date",
-      "fieldType": "LocalDate"
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "contestMode",
       "fieldType": "ContestMode",
+      "fieldValidateRules": ["required"],
       "fieldValues": "ONE (One_Game),BO3 (Best_Of_3),BO5 (Best_Of_5)"
     },
     {
       "fieldName": "location",
       "fieldType": "Location",
+      "fieldValidateRules": ["required"],
       "fieldValues": "WUERZBURG (Wuerzburg),BERLIN (Berlin),MUNICH (Munich)"
     },
     {

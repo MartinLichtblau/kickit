@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * A Game.
@@ -24,8 +25,9 @@ public class Game implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "location")
+    @Column(name = "location", nullable = false)
     private Location location;
 
     @Enumerated(EnumType.STRING)

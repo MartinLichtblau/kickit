@@ -4,7 +4,7 @@ import { PlayerPosition } from 'app/shared/model/enumerations/player-position.mo
 
 export interface IPlayerGame {
   id?: number;
-  playerPosition?: PlayerPosition | null;
+  playerPosition?: PlayerPosition;
   player?: IPlayer | null;
   game?: IGame | null;
 }

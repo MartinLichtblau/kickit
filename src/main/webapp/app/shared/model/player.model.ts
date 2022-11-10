@@ -4,8 +4,8 @@ import { Location } from 'app/shared/model/enumerations/location.model';
 
 export interface IPlayer {
   id?: number;
-  name?: string | null;
-  location?: Location | null;
+  name?: string;
+  location?: Location;
   playedGames?: IPlayerGame[] | null;
   playedContests?: IPlayerContest[] | null;
 }

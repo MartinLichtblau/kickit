@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,7 +48,7 @@ public class PlayerContestResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/player-contests")
-    public ResponseEntity<PlayerContest> createPlayerContest(@RequestBody PlayerContest playerContest) throws URISyntaxException {
+    public ResponseEntity<PlayerContest> createPlayerContest(@Valid @RequestBody PlayerContest playerContest) throws URISyntaxException {
         log.debug("REST request to save PlayerContest : {}", playerContest);
         if (playerContest.getId() != null) {
             throw new BadRequestAlertException("A new playerContest cannot already have an ID", ENTITY_NAME, "idexists");
@@ -71,7 +73,7 @@ public class PlayerContestResource {
     @PutMapping("/player-contests/{id}")
     public ResponseEntity<PlayerContest> updatePlayerContest(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody PlayerContest playerContest
+        @Valid @RequestBody PlayerContest playerContest
     ) throws URISyntaxException {
         log.debug("REST request to update PlayerContest : {}, {}", id, playerContest);
         if (playerContest.getId() == null) {
@@ -106,7 +108,7 @@ public class PlayerContestResource {
     @PatchMapping(value = "/player-contests/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<PlayerContest> partialUpdatePlayerContest(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody PlayerContest playerContest
+        @NotNull @RequestBody PlayerContest playerContest
     ) throws URISyntaxException {
         log.debug("REST request to partial update PlayerContest partially : {}, {}", id, playerContest);
         if (playerContest.getId() == null) {

@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,7 +48,7 @@ public class GameResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/games")
-    public ResponseEntity<Game> createGame(@RequestBody Game game) throws URISyntaxException {
+    public ResponseEntity<Game> createGame(@Valid @RequestBody Game game) throws URISyntaxException {
         log.debug("REST request to save Game : {}", game);
         if (game.getId() != null) {
             throw new BadRequestAlertException("A new game cannot already have an ID", ENTITY_NAME, "idexists");
@@ -69,7 +71,7 @@ public class GameResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/games/{id}")
-    public ResponseEntity<Game> updateGame(@PathVariable(value = "id", required = false) final Long id, @RequestBody Game game)
+    public ResponseEntity<Game> updateGame(@PathVariable(value = "id", required = false) final Long id, @Valid @RequestBody Game game)
         throws URISyntaxException {
         log.debug("REST request to update Game : {}, {}", id, game);
         if (game.getId() == null) {
@@ -102,8 +104,10 @@ public class GameResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/games/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<Game> partialUpdateGame(@PathVariable(value = "id", required = false) final Long id, @RequestBody Game game)
-        throws URISyntaxException {
+    public ResponseEntity<Game> partialUpdateGame(
+        @PathVariable(value = "id", required = false) final Long id,
+        @NotNull @RequestBody Game game
+    ) throws URISyntaxException {
         log.debug("REST request to partial update Game partially : {}, {}", id, game);
         if (game.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

@@ -81,7 +81,16 @@ export const PlayerUpdate = () => {
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               {!isNew ? <ValidatedField name="id" required readOnly id="player-id" label="ID" validate={{ required: true }} /> : null}
-              <ValidatedField label="Name" id="player-name" name="name" data-cy="name" type="text" />
+              <ValidatedField
+                label="Name"
+                id="player-name"
+                name="name"
+                data-cy="name"
+                type="text"
+                validate={{
+                  required: { value: true, message: 'This field is required.' },
+                }}
+              />
               <ValidatedField label="Location" id="player-location" name="location" data-cy="location" type="select">
                 {locationValues.map(location => (
                   <option value={location} key={location}>

@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,7 +48,7 @@ public class PlayerGameResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/player-games")
-    public ResponseEntity<PlayerGame> createPlayerGame(@RequestBody PlayerGame playerGame) throws URISyntaxException {
+    public ResponseEntity<PlayerGame> createPlayerGame(@Valid @RequestBody PlayerGame playerGame) throws URISyntaxException {
         log.debug("REST request to save PlayerGame : {}", playerGame);
         if (playerGame.getId() != null) {
             throw new BadRequestAlertException("A new playerGame cannot already have an ID", ENTITY_NAME, "idexists");
@@ -71,7 +73,7 @@ public class PlayerGameResource {
     @PutMapping("/player-games/{id}")
     public ResponseEntity<PlayerGame> updatePlayerGame(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody PlayerGame playerGame
+        @Valid @RequestBody PlayerGame playerGame
     ) throws URISyntaxException {
         log.debug("REST request to update PlayerGame : {}, {}", id, playerGame);
         if (playerGame.getId() == null) {
@@ -106,7 +108,7 @@ public class PlayerGameResource {
     @PatchMapping(value = "/player-games/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<PlayerGame> partialUpdatePlayerGame(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody PlayerGame playerGame
+        @NotNull @RequestBody PlayerGame playerGame
     ) throws URISyntaxException {
         log.debug("REST request to partial update PlayerGame partially : {}, {}", id, playerGame);
         if (playerGame.getId() == null) {

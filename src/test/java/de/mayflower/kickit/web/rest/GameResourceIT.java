@@ -123,6 +123,25 @@ class GameResourceIT {
 
     @Test
     @Transactional
+    void checkLocationIsRequired() throws Exception {
+        int databaseSizeBeforeTest = gameRepository.findAll().size();
+        // set the field null
+        game.setLocation(null);
+
+        // Create the Game, which fails.
+
+        restGameMockMvc
+            .perform(
+                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(game))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<Game> gameList = gameRepository.findAll();
+        assertThat(gameList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllGames() throws Exception {
         // Initialize the database
         gameRepository.saveAndFlush(game);

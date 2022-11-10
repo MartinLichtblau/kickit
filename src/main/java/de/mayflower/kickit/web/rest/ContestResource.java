@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,7 +48,7 @@ public class ContestResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/contests")
-    public ResponseEntity<Contest> createContest(@RequestBody Contest contest) throws URISyntaxException {
+    public ResponseEntity<Contest> createContest(@Valid @RequestBody Contest contest) throws URISyntaxException {
         log.debug("REST request to save Contest : {}", contest);
         if (contest.getId() != null) {
             throw new BadRequestAlertException("A new contest cannot already have an ID", ENTITY_NAME, "idexists");
@@ -69,8 +71,10 @@ public class ContestResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/contests/{id}")
-    public ResponseEntity<Contest> updateContest(@PathVariable(value = "id", required = false) final Long id, @RequestBody Contest contest)
-        throws URISyntaxException {
+    public ResponseEntity<Contest> updateContest(
+        @PathVariable(value = "id", required = false) final Long id,
+        @Valid @RequestBody Contest contest
+    ) throws URISyntaxException {
         log.debug("REST request to update Contest : {}, {}", id, contest);
         if (contest.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -104,7 +108,7 @@ public class ContestResource {
     @PatchMapping(value = "/contests/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Contest> partialUpdateContest(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Contest contest
+        @NotNull @RequestBody Contest contest
     ) throws URISyntaxException {
         log.debug("REST request to partial update Contest partially : {}, {}", id, contest);
         if (contest.getId() == null) {

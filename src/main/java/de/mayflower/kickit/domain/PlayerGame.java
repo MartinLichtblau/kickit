@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.mayflower.kickit.domain.enumeration.PlayerPosition;
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * A PlayerGame.
@@ -21,8 +22,9 @@ public class PlayerGame implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "player_position")
+    @Column(name = "player_position", nullable = false)
     private PlayerPosition playerPosition;
 
     @ManyToOne

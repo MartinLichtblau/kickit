@@ -148,6 +148,72 @@ class ContestResourceIT {
 
     @Test
     @Transactional
+    void checkDateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = contestRepository.findAll().size();
+        // set the field null
+        contest.setDate(null);
+
+        // Create the Contest, which fails.
+
+        restContestMockMvc
+            .perform(
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(contest))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<Contest> contestList = contestRepository.findAll();
+        assertThat(contestList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkContestModeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = contestRepository.findAll().size();
+        // set the field null
+        contest.setContestMode(null);
+
+        // Create the Contest, which fails.
+
+        restContestMockMvc
+            .perform(
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(contest))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<Contest> contestList = contestRepository.findAll();
+        assertThat(contestList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkLocationIsRequired() throws Exception {
+        int databaseSizeBeforeTest = contestRepository.findAll().size();
+        // set the field null
+        contest.setLocation(null);
+
+        // Create the Contest, which fails.
+
+        restContestMockMvc
+            .perform(
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(contest))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<Contest> contestList = contestRepository.findAll();
+        assertThat(contestList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllContests() throws Exception {
         // Initialize the database
         contestRepository.saveAndFlush(contest);

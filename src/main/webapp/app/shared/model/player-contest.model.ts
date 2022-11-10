@@ -4,7 +4,7 @@ import { Team } from 'app/shared/model/enumerations/team.model';
 
 export interface IPlayerContest {
   id?: number;
-  team?: Team | null;
+  team?: Team;
   player?: IPlayer | null;
   contest?: IContest | null;
 }

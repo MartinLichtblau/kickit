@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * A Player.
@@ -23,11 +24,13 @@ public class Player implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @NotNull
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "location")
+    @Column(name = "location", nullable = false)
     private Location location;
 
     @OneToMany(mappedBy = "player")

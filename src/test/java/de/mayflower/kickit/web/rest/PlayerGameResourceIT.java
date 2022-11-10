@@ -124,6 +124,28 @@ class PlayerGameResourceIT {
 
     @Test
     @Transactional
+    void checkPlayerPositionIsRequired() throws Exception {
+        int databaseSizeBeforeTest = playerGameRepository.findAll().size();
+        // set the field null
+        playerGame.setPlayerPosition(null);
+
+        // Create the PlayerGame, which fails.
+
+        restPlayerGameMockMvc
+            .perform(
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(playerGame))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<PlayerGame> playerGameList = playerGameRepository.findAll();
+        assertThat(playerGameList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllPlayerGames() throws Exception {
         // Initialize the database
         playerGameRepository.saveAndFlush(playerGame);

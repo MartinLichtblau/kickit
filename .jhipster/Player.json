@@ -7,11 +7,13 @@
   "fields": [
     {
       "fieldName": "name",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
     },
     {
       "fieldName": "location",
       "fieldType": "Location",
+      "fieldValidateRules": ["required"],
       "fieldValues": "WUERZBURG (Wuerzburg),BERLIN (Berlin),MUNICH (Munich)"
     }
   ],

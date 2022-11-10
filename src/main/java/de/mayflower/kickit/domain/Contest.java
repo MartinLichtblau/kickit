@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * A Contest.
@@ -26,15 +27,18 @@ public class Contest implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "date")
+    @NotNull
+    @Column(name = "date", nullable = false)
     private LocalDate date;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "contest_mode")
+    @Column(name = "contest_mode", nullable = false)
     private ContestMode contestMode;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "location")
+    @Column(name = "location", nullable = false)
     private Location location;
 
     @Enumerated(EnumType.STRING)

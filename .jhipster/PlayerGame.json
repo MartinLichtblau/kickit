@@ -8,6 +8,7 @@
     {
       "fieldName": "playerPosition",
       "fieldType": "PlayerPosition",
+      "fieldValidateRules": ["required"],
       "fieldValues": "FRONT (Front_Position),BACK (Back_Position)"
     }
   ],

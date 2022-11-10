@@ -7,9 +7,9 @@ import { Team } from 'app/shared/model/enumerations/team.model';
 
 export interface IContest {
   id?: number;
-  date?: string | null;
-  contestMode?: ContestMode | null;
-  location?: Location | null;
+  date?: string;
+  contestMode?: ContestMode;
+  location?: Location;
   winnerTeam?: Team | null;
   contestPlayers?: IPlayerContest[] | null;
   games?: IGame[] | null;

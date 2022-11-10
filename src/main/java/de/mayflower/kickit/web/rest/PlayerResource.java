@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,7 +48,7 @@ public class PlayerResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/players")
-    public ResponseEntity<Player> createPlayer(@RequestBody Player player) throws URISyntaxException {
+    public ResponseEntity<Player> createPlayer(@Valid @RequestBody Player player) throws URISyntaxException {
         log.debug("REST request to save Player : {}", player);
         if (player.getId() != null) {
             throw new BadRequestAlertException("A new player cannot already have an ID", ENTITY_NAME, "idexists");
@@ -69,8 +71,10 @@ public class PlayerResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/players/{id}")
-    public ResponseEntity<Player> updatePlayer(@PathVariable(value = "id", required = false) final Long id, @RequestBody Player player)
-        throws URISyntaxException {
+    public ResponseEntity<Player> updatePlayer(
+        @PathVariable(value = "id", required = false) final Long id,
+        @Valid @RequestBody Player player
+    ) throws URISyntaxException {
         log.debug("REST request to update Player : {}, {}", id, player);
         if (player.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -104,7 +108,7 @@ public class PlayerResource {
     @PatchMapping(value = "/players/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Player> partialUpdatePlayer(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Player player
+        @NotNull @RequestBody Player player
     ) throws URISyntaxException {
         log.debug("REST request to partial update Player partially : {}, {}", id, player);
         if (player.getId() == null) {

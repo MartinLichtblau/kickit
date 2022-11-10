@@ -124,6 +124,28 @@ class PlayerContestResourceIT {
 
     @Test
     @Transactional
+    void checkTeamIsRequired() throws Exception {
+        int databaseSizeBeforeTest = playerContestRepository.findAll().size();
+        // set the field null
+        playerContest.setTeam(null);
+
+        // Create the PlayerContest, which fails.
+
+        restPlayerContestMockMvc
+            .perform(
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(playerContest))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<PlayerContest> playerContestList = playerContestRepository.findAll();
+        assertThat(playerContestList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllPlayerContests() throws Exception {
         // Initialize the database
         playerContestRepository.saveAndFlush(playerContest);

@@ -122,6 +122,44 @@ class PlayerResourceIT {
 
     @Test
     @Transactional
+    void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = playerRepository.findAll().size();
+        // set the field null
+        player.setName(null);
+
+        // Create the Player, which fails.
+
+        restPlayerMockMvc
+            .perform(
+                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(player))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<Player> playerList = playerRepository.findAll();
+        assertThat(playerList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkLocationIsRequired() throws Exception {
+        int databaseSizeBeforeTest = playerRepository.findAll().size();
+        // set the field null
+        player.setLocation(null);
+
+        // Create the Player, which fails.
+
+        restPlayerMockMvc
+            .perform(
+                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(player))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<Player> playerList = playerRepository.findAll();
+        assertThat(playerList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllPlayers() throws Exception {
         // Initialize the database
         playerRepository.saveAndFlush(player);

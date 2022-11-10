@@ -1,7 +1,7 @@
 
 entity Player {
-	name String,
-    location Location
+	name String required unique,
+    location Location required
 }
 
 enum Location {
@@ -11,10 +11,10 @@ enum Location {
 }
 
 entity Contest {
-	date LocalDate,
-    ContestMode ContestMode,
-    location Location,
-    winnerTeam Team,
+	date LocalDate required,
+    ContestMode ContestMode required,
+    location Location required,
+    winnerTeam Team
 }
 
 enum ContestMode {
@@ -29,16 +29,16 @@ enum Team {
 }
 
 entity PlayerContest {
-    team Team
+    team Team required,
 }
 
 entity Game {
-	location Location,
+	location Location required,
     winnerTeam Team,
 }
 
 entity PlayerGame {
-    playerPosition PlayerPosition
+    playerPosition PlayerPosition required,
 }
 
 enum PlayerPosition {

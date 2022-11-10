@@ -8,6 +8,7 @@
     {
       "fieldName": "location",
       "fieldType": "Location",
+      "fieldValidateRules": ["required"],
       "fieldValues": "WUERZBURG (Wuerzburg),BERLIN (Berlin),MUNICH (Munich)"
     },
     {

@@ -5,7 +5,7 @@ import { Team } from 'app/shared/model/enumerations/team.model';
 
 export interface IGame {
   id?: number;
-  location?: Location | null;
+  location?: Location;
   winnerTeam?: Team | null;
   gamePlayers?: IPlayerGame[] | null;
   contest?: IContest | null;
