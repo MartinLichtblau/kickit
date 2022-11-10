@@ -1,0 +1,38 @@
+{
+  "applications": "*",
+  "changelogDate": "20221110073125",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "player",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "location",
+      "fieldType": "Location",
+      "fieldValues": "WUERZBURG (Wuerzburg),BERLIN (Berlin),MUNICH (Munich)"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Player",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "playerGame",
+      "otherEntityRelationshipName": "player",
+      "relationshipName": "playedGames",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "playerContest",
+      "otherEntityRelationshipName": "player",
+      "relationshipName": "playedContests",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

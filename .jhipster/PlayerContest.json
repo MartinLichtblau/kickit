@@ -1,0 +1,34 @@
+{
+  "applications": "*",
+  "changelogDate": "20221110073127",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "player_contest",
+  "fields": [
+    {
+      "fieldName": "team",
+      "fieldType": "Team",
+      "fieldValues": "T1 (Team1),T2 (Team2)"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "PlayerContest",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "player",
+      "otherEntityRelationshipName": "playedContests",
+      "relationshipName": "player",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "contest",
+      "otherEntityRelationshipName": "contestPlayers",
+      "relationshipName": "contest",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

@@ -1,0 +1,34 @@
+{
+  "applications": "*",
+  "changelogDate": "20221110073129",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "player_game",
+  "fields": [
+    {
+      "fieldName": "playerPosition",
+      "fieldType": "PlayerPosition",
+      "fieldValues": "FRONT (Front_Position),BACK (Back_Position)"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "PlayerGame",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "player",
+      "otherEntityRelationshipName": "playedGames",
+      "relationshipName": "player",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "game",
+      "otherEntityRelationshipName": "gamePlayers",
+      "relationshipName": "game",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

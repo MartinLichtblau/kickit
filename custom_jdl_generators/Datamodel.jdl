@@ -1,0 +1,77 @@
+
+entity Player {
+	name String,
+    location Location
+}
+
+enum Location {
+  WUERZBURG (Wuerzburg),
+  BERLIN (Berlin),
+  MUNICH (Munich)
+}
+
+entity Contest {
+	date LocalDate,
+    ContestMode ContestMode,
+    location Location,
+    winnerTeam Team,
+}
+
+enum ContestMode {
+	ONE (One_Game),
+    BO3 (Best_Of_3),
+    BO5 (Best_Of_5)
+}
+
+enum Team {
+	T1 (Team1),
+    T2 (Team2)
+}
+
+entity PlayerContest {
+    team Team
+}
+
+entity Game {
+	location Location,
+    winnerTeam Team,
+}
+
+entity PlayerGame {
+    playerPosition PlayerPosition
+}
+
+enum PlayerPosition {
+	FRONT (Front_Position),
+    BACK (Back_Position)
+}
+
+relationship OneToMany {
+	Player {playedGames} to PlayerGame {player} // One Player has many PlayerGame
+}
+
+relationship OneToMany {
+	Player {playedContests} to PlayerContest {player} // One Player has many PlayerContests.
+}
+
+relationship OneToMany {
+	Game {gamePlayers} to PlayerGame {game} // One game has many gameplayers
+}
+
+relationship OneToMany {
+	Contest {contestPlayers} to PlayerContest {contest} // One contest has many players
+}
+
+relationship OneToMany {
+	Contest {games} to Game {contest} // One contest has many games. One Game is part of one contest.
+}
+
+relationship OneToMany {
+	Contest {contestPlayers} to PlayerContest {contest} // One contest has many contest players.  
+}
+
+
+
+
+
+
