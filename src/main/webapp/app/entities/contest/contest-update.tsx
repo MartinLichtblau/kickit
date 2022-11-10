@@ -12,6 +12,7 @@ import { IContest } from 'app/shared/model/contest.model';
 import { ContestMode } from 'app/shared/model/enumerations/contest-mode.model';
 import { Location } from 'app/shared/model/enumerations/location.model';
 import { Team } from 'app/shared/model/enumerations/team.model';
+import PlayerContest from 'app/entities/player-contest';
 import { getEntity, updateEntity, createEntity, reset } from './contest.reducer';
 
 export const ContestUpdate = () => {
@@ -44,7 +45,7 @@ export const ContestUpdate = () => {
 
   useEffect(() => {
     if (updateSuccess) {
-      handleClose();
+      navigate(`/contest/${contestEntity.id}/edit`);
     }
   }, [updateSuccess]);
 
@@ -67,7 +68,7 @@ export const ContestUpdate = () => {
       : {
           contestMode: 'ONE',
           location: 'WUERZBURG',
-          winnerTeam: 'T1',
+          winnerTeam: '',
           ...contestEntity,
         };
 
@@ -109,6 +110,7 @@ export const ContestUpdate = () => {
                   </option>
                 ))}
               </ValidatedField>
+              {!isNew ? <Row> {<PlayerContest />} </Row> : null}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/contest" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

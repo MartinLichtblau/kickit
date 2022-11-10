@@ -36,7 +36,10 @@ export const createEntity = createAsyncThunk(
   'contest/create_entity',
   async (entity: IContest, thunkAPI) => {
     const result = await axios.post<IContest>(apiUrl, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    entity = result.data;
+    {
+      console.log(entity);
+    }
     return result;
   },
   { serializeError: serializeAxiosError }
