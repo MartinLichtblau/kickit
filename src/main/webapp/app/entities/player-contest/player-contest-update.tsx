@@ -26,6 +26,7 @@ export const PlayerContestUpdate = () => {
 
   const players = useAppSelector(state => state.player.entities);
   const contests = useAppSelector(state => state.contest.entities);
+  const contestEntity = useAppSelector(state => state.contest.entity);
   const playerContestEntity = useAppSelector(state => state.playerContest.entity);
   const loading = useAppSelector(state => state.playerContest.loading);
   const updating = useAppSelector(state => state.playerContest.updating);
@@ -33,7 +34,11 @@ export const PlayerContestUpdate = () => {
   const teamValues = Object.keys(Team);
 
   const handleClose = () => {
-    navigate('/player-contest');
+    if (contestEntity) {
+      navigate(`/contest/${contestEntity.id}/edit`);
+    } else {
+      navigate('/player-contest');
+    }
   };
 
   useEffect(() => {
@@ -70,7 +75,7 @@ export const PlayerContestUpdate = () => {
 
   const defaultValues = () =>
     isNew
-      ? {}
+      ? { contest: contestEntity?.id }
       : {
           team: 'T1',
           ...playerContestEntity,
@@ -108,7 +113,7 @@ export const PlayerContestUpdate = () => {
                 {players
                   ? players.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.name}
                       </option>
                     ))
                   : null}

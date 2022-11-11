@@ -7,6 +7,8 @@ import { Row, Col, Alert } from 'reactstrap';
 
 import { useAppSelector } from 'app/config/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ContestList from 'app/entities/contest';
+import PlayerList from 'app/entities/player';
 
 export const Home = () => {
   const account = useAppSelector(state => state.authentication.account);
@@ -40,23 +42,16 @@ export const Home = () => {
             </div>
           )}
         </Col>
-        <Col md="4">
-          <Link to="/player/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp; New Player
-          </Link>
-          <Link to="/contest/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp; Start Contest
-          </Link>
-        </Col>
       </Row>
+      <Row className="pad"></Row>
       <Row>
-        <Col md="6" className="pad">
+        <Col md="6">
           <h3>Latest Results</h3>
+          <Row> {<ContestList />} </Row>
         </Col>
         <Col md="6">
           <h3>Leaderboard</h3>
+          <Row> {<PlayerList />} </Row>
         </Col>
       </Row>
     </Row>

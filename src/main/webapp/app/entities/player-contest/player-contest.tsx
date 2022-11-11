@@ -30,11 +30,8 @@ export const PlayerContest = () => {
   return (
     <div>
       <h2 id="player-contest-heading" data-cy="PlayerContestHeading">
-        Player Contests
+        {location.pathname == '/contest/1056/edit' ? 'Contest Player' : 'Player Contests'}
         <div className="d-flex justify-content-end">
-          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} /> Refresh list
-          </Button>
           <Link to="/player-contest/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Create a new Player Contest
@@ -62,7 +59,7 @@ export const PlayerContest = () => {
                     </Button>
                   </td>
                   <td>{playerContest.team}</td>
-                  <td>{playerContest.player ? <Link to={`/player/${playerContest.player.id}`}>{playerContest.player.id}</Link> : ''}</td>
+                  <td>{playerContest.player ? <Link to={`/player/${playerContest.player.id}`}>{playerContest.player.name}</Link> : ''}</td>
                   <td>
                     {playerContest.contest ? <Link to={`/contest/${playerContest.contest.id}`}>{playerContest.contest.id}</Link> : ''}
                   </td>
